@@ -3,41 +3,44 @@ import { useSelector, useDispatch } from 'react-redux';
 import { removeItem, updateQuantity } from './CartSlice';
 import './CartItem.css';
 
-const calculateTotalAmount = () => {
-  let total = 0;
-  cart.forEach(item => {
-    const cost = parseFloat(item.cost.replace('$', ''));
-    total += cost * item.quantity;
-  });
-  return total.toFixed(2);
-};
+const CartItem = ({ onContinueShopping }) => {
+  const cart = useSelector(state => state.cart.items);
+  const dispatch = useDispatch();
 
-const handleContinueShopping = (e) => {
-  e.preventDefault();
-  onContinueShopping();
-};
+  const calculateTotalAmount = () => {
+    let total = 0;
+    cart.forEach(item => {
+      const cost = parseFloat(item.cost.replace('$', ''));
+      total += cost * item.quantity;
+    });
+    return total.toFixed(2);
+  };
 
-const handleIncrement = (item) => {
-  dispatch(updateQuantity({ name: item.name, quantity: item.quantity + 1 }));
-};
+  const handleContinueShopping = (e) => {
+    e.preventDefault();
+    onContinueShopping();
+  };
 
-const handleDecrement = (item) => {
-  if (item.quantity > 1) {
-    dispatch(updateQuantity({ name: item.name, quantity: item.quantity - 1 }));
-  } else {
+  const handleIncrement = (item) => {
+    dispatch(updateQuantity({ name: item.name, quantity: item.quantity + 1 }));
+  };
+
+  const handleDecrement = (item) => {
+    if (item.quantity > 1) {
+      dispatch(updateQuantity({ name: item.name, quantity: item.quantity - 1 }));
+    } else {
+      dispatch(removeItem(item.name));
+    }
+  };
+
+  const handleRemove = (item) => {
     dispatch(removeItem(item.name));
-  }
-};
+  };
 
-const handleRemove = (item) => {
-  dispatch(removeItem(item.name));
-};
-
-const calculateTotalCost = (item) => {
-  const cost = parseFloat(item.cost.replace('$', ''));
-  return (cost * item.quantity).toFixed(2);
-};
-
+  const calculateTotalCost = (item) => {
+    const cost = parseFloat(item.cost.replace('$', ''));
+    return (cost * item.quantity).toFixed(2);
+  };
 
   return (
     <div className="cart-container">
@@ -71,5 +74,3 @@ const calculateTotalCost = (item) => {
 };
 
 export default CartItem;
-
-
