@@ -276,7 +276,7 @@ function ProductList({ onHomeClick }) {
             <div className="tag">
                 <div className="luxury">
                     <img src="https://cdn.pixabay.com/photo/2020/08/05/13/12/eco-5465432_1280.png" alt="" />
-                    <a href="/" onClick={(e) => handleHomeClick(e)}>
+                    <a href="/" onClick={handleHomeClick}>
                         <div>
                             <h3 style={{ color: 'white' }}>Paradise Nursery</h3>
                             <i style={{ color: 'white' }}>Where Green Meets Serenity</i>
@@ -284,9 +284,15 @@ function ProductList({ onHomeClick }) {
                     </a>
                 </div>
             </div>
+            {/* Aquí va la barra con Plants y el carrito */}
             <div style={styleObjUl}>
+                {/* Botón Plants */}
+                <div>
+                    <a href="#" onClick={handlePlantsClick} style={styleA}>Plants</a>
+                </div>
+                {/* Carrito */}
                 <div style={{ position: 'relative', display: 'inline-block' }}>
-                    <a href="#" onClick={(e) => handleCartClick(e)} style={styleA}>
+                    <a href="#" onClick={handleCartClick} style={styleA}>
                         <h1 className='cart' style={{ margin: 0 }}>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" height="68" width="68">
                                 <rect width="156" height="156" fill="none"></rect>
@@ -316,6 +322,7 @@ function ProductList({ onHomeClick }) {
             </div>
         </div>
 
+        {/* Aquí ya puedes mostrar productos o carrito */}
         {!showCart ? (
             <div className="product-grid">
                 {plantsArray.map((category, index) => (
@@ -326,8 +333,8 @@ function ProductList({ onHomeClick }) {
                         <div className="product-list">
                             {category.plants.map((plant, plantIndex) => (
                                 <div className="product-card" key={plantIndex}>
-                                    <img 
-                                        className="product-image" 
+                                    <img
+                                        className="product-image"
                                         src={plant.image}
                                         alt={plant.name}
                                     />
@@ -351,7 +358,6 @@ function ProductList({ onHomeClick }) {
         )}
     </div>
 );
-
 
 }
 
